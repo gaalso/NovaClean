@@ -1,4 +1,3 @@
-[README.md](https://github.com/user-attachments/files/33844231/README.md)
 # NovaClean
 Open-source alternative to CleanMyMac using REA
 # NovaClean
