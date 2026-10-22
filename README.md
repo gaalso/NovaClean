@@ -47,4 +47,57 @@ Review cleaning actions before applying them. Most removals are sent to Trash, b
 Clone the repository:
 
 ```sh
-git clone https://
+git clone https://github.com/gaalso/NovaClean.git
+cd NovaClean
+```
+
+Build the Universal version:
+
+```sh
+./build.sh
+```
+
+Other build options:
+
+```sh
+./build.sh intel
+./build.sh silicon
+```
+
+Open the compiled application:
+
+```sh
+open build/NovaClean.app
+```
+
+Installers are generated in the `dist/` directory according to the project's build and packaging process.
+
+## Technologies
+
+- Swift
+- SwiftUI
+- AppKit
+
+## Project Scope
+
+NovaClean is an independent implementation of cleaning and system monitoring tools. It is not affiliated with, sponsored by, or endorsed by MacPaw or CleanMyMac.
+
+The application is not intended to replace specialized malware detection, system health monitoring, or complete application uninstallation tools.
+
+## Documentation
+
+- [`IDENTITY.md`](IDENTITY.md) — project visual identity.
+- [`blueprint-REA.md`](blueprint-REA.md) — technical documentation and reference analysis.
+- [`GITHUB.md`](GITHUB.md) — publishing and distribution instructions.
+
+## Contributing
+
+Contributions, suggestions, and bug reports are welcome. Use the [Issues](https://github.com/gaalso/NovaClean/issues) section to report problems or suggest improvements.
+
+## License
+
+A license has not yet been specified. Until an open-source license is added, do not assume that the code may be freely reused, modified, or redistributed.
+
+---
+
+Developed by [@gaalso](https://github.com/gaalso).
