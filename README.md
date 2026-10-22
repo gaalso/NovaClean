@@ -1,51 +1,50 @@
 # NovaClean
 
-Reimplementação **original e independente** inspirada na CleanMyMac 5 (5.7.2, Mac App Store), construída a partir de uma análise estática via REA do app instalado nesta máquina. Código, nomes, ícones, textos e identidade são 100% originais — nenhum asset, ícone, string ou código da MacPaw foi copiado. Os módulos fazem o mesmo *tipo* de trabalho (saneamento de disco), por implementação própria.
+**Cleaning, organization, and system monitoring for macOS.**
 
-Sem afiliação com a MacPaw. Use por sua conta: as ações de "limpeza" movem arquivos para a **Lixeira** (recuperável) exceto "Esvaziar Lixeira", que é permanente.
+NovaClean is an open-source macOS application that brings together tools for analyzing disk usage, locating large files, managing applications, and monitoring system performance.
 
-## Identidade visual (v1.1 "Nova")
+[**Download NovaClean v1.3.0**](https://github.com/gaalso/NovaClean/releases/tag/v1.3.0) · [Source code](https://github.com/gaalso/NovaClean)
 
-Conceito, paleta e logo documentados em [`IDENTITY.md`](IDENTITY.md). Logo "nova nos cuidados": gradiente `#7A2CFF → #A52CFF → #FF3E8E`, anel orbital e sparkle de 4 pontas — o ícone do app é gerado por [`tools/gen_icon.swift`](tools/gen_icon.swift) e empacotado em `src/AppIcon.icns`.
+**Language:** English | [Português (Brasil)](README.pt-BR.md)
 
-**v1.2 — grafismo analítico:** orbit chart de bolhas em "Meu Espaço" (clique = drill-down), barra espectral de categorias e uso do disco no "Cuidado Inteligente", **pré-seleção automática de sugestões** ao abrir cada tela (Lixo: removíveis ≥ 128 MB; Arquivos Grandes: ≥ 300 MB) e botão **Selecionar tudo ↔ Deselecionar tudo**. Detalhes em [`IDENTITY.md`](IDENTITY.md).
+## Features
 
-**v1.3 — tudo num clique + sistema:**
-- **Cuidado Inteligente** executa os 4 módulos **em paralelo** e tudo acontece na mesma tela: dial + espectro + listas de sugestão com toggles + botão **"Aplicar limpeza"** (com opção de esvaziar a Lixeira ao concluir). Nada de trocar de aba.
-- **Acelerar**: memória física em uso/livre, liberar caches em disco (`purge`) e lista de apps ≥ 100 MB com CPU/RAM — seleção pré-marcada (≥ 600 MB) e encerramento com quit normal.
-- **Sistema**: CPU (user/sys/ocioso), memória, estado térmico do kernel (xcpm), disco e **top processos por RAM** — auto-atualiza a cada 6 s.
-- **Meu Espaço** redesenhado: **treemap squarified** (mapa de áreas sem sobreposição, estilo Space View) como herói da tela + listas de pastas/destaques com remoção por item.
+- **Smart Care:** combines cleaning analyses and presents suggestions in one place.
+- **System Junk:** identifies caches that may be removed.
+- **Large Files:** finds large files in personal folders.
+- **Disk Space Explorer:** visualizes file distribution and allows folder navigation.
+- **Applications:** lists installed applications and provides an option to move them to Trash.
+- **Trash:** checks occupied space and allows you to empty it.
+- **Speed Up:** provides information about memory usage and running applications.
+- **System Monitor:** tracks CPU, memory, storage, thermal status, and processes.
 
-## Construir e executar
+## Download and Installation
 
-Requisito: macOS 12+ e **Xcode Command Line Tools**. Binários: `intel` (x86_64), `silicon` (Apple Silicon arm64) ou `universal`.
+**Requirement:** macOS 12 or later.
+
+1. Visit the [NovaClean v1.3.0 release page](https://github.com/gaalso/NovaClean/releases/tag/v1.3.0).
+2. Expand **Assets**, if necessary.
+3. Choose the `.dmg` installer appropriate for your Mac.
+4. Open the disk image and drag NovaClean into the Applications folder.
+
+Check the filenames on the release page to distinguish Intel, Apple Silicon, and Universal builds.
+
+### Security Notice
+
+This release is not notarized by Apple. macOS may display a security warning when you first open the application. Only proceed if you trust the source and have verified the downloaded file.
+
+Review cleaning actions before applying them. Most removals are sent to Trash, but emptying Trash may permanently delete files.
+
+## Development Requirements
+
+- macOS 12 or later
+- Xcode Command Line Tools
+- Swift and the required build tools
+
+## Build from Source
+
+Clone the repository:
 
 ```sh
-./build.sh             # universal (Intel + Apple Silicon) — padrão
-./build.sh intel       # apenas x86_64
-./build.sh silicon     # apenas arm64 (Apple Silicon)
-open build/NovaClean.app
-```
-
-Instaladores prontos (`.dmg`) ficam em `dist/` — ver [`GITHUB.md`](GITHUB.md).
-
-## Módulos
-
-| Módulo | O que faz |
-|---|---|
-| Cuidado Inteligente | Orquestra as 4 análises (caches, arquivos grandes, lixeira, apps) e resume o liberável |
-| Lixo do Sistema | Mede `~/Library/Caches` (removível → Lixeira) e `/Library/Caches` (só informativo) |
-| Arquivos Grandes | Varre Desktop/Documents/Downloads/Movies/Music/Pictures por arquivos ≥ 50 MB |
-| Meu Espaço | Visualização por pastas do diretório home com drill-down, arquivos por nível e destaques ≥ 100 MB |
-| Aplicativos | Inventário de `/Applications` + `~/Applications` (nome, versão, tamanho), desinstalar move para a Lixeira |
-| Lixeira | Tamanho, contagem e esvaziar com confirmação |
-
-## Blueprint
-
-`blueprint-REA.md` documenta como a CleanMyMac real está organizada (descoberto via REA: Info.plist, assinatura/entitlements, 140+ frameworks, strings de localização) e como o NovaClean mapeia esses módulos — incluindo tudo o que a recriação **não** cobre (verificação de malware real, XPC/health monitor, remoção de leftovers, contas em nuvem etc.).
-
-## Notas técnicas
-
-- SwiftUI + AppKit, compilado com `swiftc` (sem dependências externas), alvo `x86_64-apple-macos12.0`.
-- Scans rodam em `Task.detached` com limite de entradas para manter a UI responsiva.
-- Ações destrutivas movem para a Lixeira via `FileManager.trashItem`.
+git clone https://
